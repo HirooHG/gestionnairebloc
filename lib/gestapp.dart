@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestionnairebloc/modelview/pagamanager.dart';
 
 import 'view/mainview.dart';
 import 'modelview/gestbloc.dart';
@@ -10,10 +11,13 @@ class GestApp extends MaterialApp {
     home: MultiBlocProvider(
       providers: [
         BlocProvider<GestBloc>(
-          create: (context) => GestBloc()
+          create: (_) => GestBloc()
+        ),
+        BlocProvider<PageManager>(
+          create: (_) => PageManager(),
         )
       ],
-      child: MainView()
+      child: const MainView()
     ),
     debugShowCheckedModeBanner: false
   );

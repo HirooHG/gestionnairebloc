@@ -42,6 +42,7 @@ dependencies:
   flutter_bloc: ^8.1.1
   build_runner: ^2.3.3
   hive_generator: ^2.0.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,43 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
+  assets:
+    - .env
+
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: assets/ubuntu/Ubuntu-R.ttf
+        - asset: assets/ubuntu/Ubuntu-RI.ttf
+          style: italic
+        - asset: assets/ubuntu/Ubuntu-B.ttf
+          weight: 700
+        - asset: assets/ubuntu/Ubuntu-BI.ttf
+          weight: 700
+          style: italic
+        - asset: assets/ubuntu/Ubuntu-L.ttf
+          weight: 300
+        - asset: assets/ubuntu/Ubuntu-LI.ttf
+          weight: 300
+          style: italic
+        - asset: assets/ubuntu/Ubuntu-M.ttf
+          weight: 500
+        - asset: assets/ubuntu/Ubuntu-MI.ttf
+          weight: 500
+          style: italic
+    - family: Ubuntu Mono
+      fonts:
+        - asset: assets/ubuntu/UbuntuMono-R.ttf
+        - asset: assets/ubuntu/UbuntuMono-RI.ttf
+          style: italic
+        - asset: assets/ubuntu/UbuntuMono-B.ttf
+          weight: 700
+        - asset: assets/ubuntu/UbuntuMono-BI.ttf
+          weight: 700
+          style: italic
+    - family: Ubuntu Condensed
+      fonts:
+        - asset: assets/ubuntu/Ubuntu-C.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
