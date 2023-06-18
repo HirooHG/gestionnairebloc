@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:gestionnairebloc/data/hivehandler.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'gestapp.dart';
-import 'package:gestionnairebloc/modelview/password.dart';
+import 'gestionnaire_app.dart';
+import 'package:gestionnairebloc/domain/entities/passwordG.dart';
 
 void main() async {
   await Hive.initFlutter();
-  await dotenv.load();
-  Hive.registerAdapter<Password>(PasswordTypeAdapter());
   Hive.registerAdapter<PasswordG>(PasswordGTypeAdapter());
-  runApp(GestApp());
+
+  await HiveHandler.init();
+
+  runApp(const GestionnaireApp());
 }
