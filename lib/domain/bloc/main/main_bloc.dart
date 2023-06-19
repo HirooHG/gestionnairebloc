@@ -20,7 +20,6 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     emit(MainLoading());
 
     var pwds = await handler.getPwds();
-    print(pwds.map((e) => e.pwd));
 
     emit(MainLoaded(pwds: pwds, allPwds: [...pwds]));
   }

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestionnairebloc/domain/bloc/main/main_bloc.dart';
+import 'package:gestionnairebloc/router/routes.dart';
+import 'package:go_router/go_router.dart';
 
 class PwdsList extends StatefulWidget {
   const PwdsList({super.key});
@@ -14,6 +16,8 @@ class PwdsList extends StatefulWidget {
 }
 
 class _PwdsListState extends State<PwdsList> {
+
+  late final width = MediaQuery.of(context).size.width;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +39,26 @@ class _PwdsListState extends State<PwdsList> {
                           (e.identifierVisible == true ? e.getIdeUncrypted() : e.website) ?? ""
                         )
                       ),
-                      trailing: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            e.pwdVisible = e.pwdVisible != null ? !e.pwdVisible! : true;
-                          });
-                        },
-                        icon: const Icon(Icons.remove_red_eye),
+                      trailing: SizedBox(
+                        width: width * 0.28,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  e.pwdVisible = e.pwdVisible != null ? !e.pwdVisible! : true;
+                                });
+                              },
+                              icon: const Icon(Icons.remove_red_eye),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                context.go(Routes.pwd.path, extra: e);
+                              },
+                              icon: const Icon(Icons.more_horiz),
+                            ),
+                          ]
+                        ),
                       ),
                       leading: IconButton(
                         onPressed: () {

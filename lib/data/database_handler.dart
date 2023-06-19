@@ -49,6 +49,7 @@ class DatabaseHandler {
     return pwdsRaw.map((e) => Password.fromMap(e)).toList();
   }
 
+  // raw queries
   Future<void> execQuery(String sql) async  {
     var db = await initializeDB();
     db.execute(sql);
