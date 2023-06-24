@@ -1,7 +1,7 @@
 
 import 'package:bloc/bloc.dart';
 
-import 'package:gestionnairebloc/domain/entities/passwordG.dart';
+import 'package:gestionnairebloc/domain/entities/password_g.dart';
 import 'package:gestionnairebloc/data/hivehandler.dart';
 
 part 'auth_event.dart';

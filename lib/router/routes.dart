@@ -2,7 +2,7 @@
 enum Routes {
   auth("/"),
   add("/add"),
-  pwd("/pwd"),
+  update("/update"),
   home("/home");
 
   const Routes(this.path);

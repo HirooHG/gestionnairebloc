@@ -41,6 +41,11 @@ class SearchBar extends StatelessWidget {
             ),
           )
         ),
+        onChanged: (value) {
+          if(value.isEmpty) {
+            BlocProvider.of<MainBloc>(context).add(Search(value: value));
+          }
+        },
         onSubmitted: (value) {
           BlocProvider.of<MainBloc>(context).add(Search(value: value));
         },

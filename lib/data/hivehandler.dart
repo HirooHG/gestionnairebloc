@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:gestionnairebloc/storage/key_storage.dart';
 import 'package:hive/hive.dart';
 
-import 'package:gestionnairebloc/domain/entities/passwordG.dart';
+import 'package:gestionnairebloc/domain/entities/password_g.dart';
 
 class HiveHandler {
 

@@ -39,7 +39,7 @@ class DatabaseHandler {
 
   Future<void> create(Password pwd) async {
     var sql = "insert into pwd(website, identifier, pwd) "
-              "value ('${pwd.website}', '${pwd.identifier}', '${pwd.pwd}');";
+              "values ('${pwd.website}', '${pwd.identifier}', '${pwd.pwd}');";
     await execQuery(sql);
   }
 

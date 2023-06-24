@@ -53,7 +53,7 @@ class _PwdsListState extends State<PwdsList> {
                             ),
                             IconButton(
                               onPressed: () {
-                                context.go(Routes.pwd.path, extra: e);
+                                context.go(Routes.update.path, extra: e);
                               },
                               icon: const Icon(Icons.more_horiz),
                             ),

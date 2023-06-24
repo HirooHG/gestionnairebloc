@@ -26,10 +26,10 @@ class MainBloc extends Bloc<MainEvent, MainState> {
 
 
   void crud(Crud event, Emitter<MainState> emit) async {
-    var pwds = (state as MainLoaded).pwds;
-    var allPwds = (state as MainLoaded).allPwds;
-
     emit(MainLoading());
+
+    var pwds = await handler.getPwds(); 
+    var allPwds = [...pwds];
 
     if(event is Delete) {
       handler.delete(event.pwd);
@@ -40,10 +40,8 @@ class MainBloc extends Bloc<MainEvent, MainState> {
       handler.create(event.pwd);
       pwds.add(event.pwd);
       allPwds.add(event.pwd);
-    } else {
-      pwds = await handler.getPwds(); 
-      allPwds = [...pwds];
     }
+
     
     emit(MainLoaded(pwds: pwds, allPwds: allPwds));
   }

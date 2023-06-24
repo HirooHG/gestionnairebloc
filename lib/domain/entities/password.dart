@@ -1,5 +1,5 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:gestionnairebloc/domain/cryptData.dart';
+import 'package:gestionnairebloc/domain/crypt_data.dart';
 
 class Password {
 

@@ -2,14 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:gestionnairebloc/domain/entities/password.dart';
 import 'package:gestionnairebloc/router/routes.dart';
-import 'package:gestionnairebloc/view/add_view.dart';
 import 'package:gestionnairebloc/view/nav/app_bar.dart';
 import 'package:gestionnairebloc/view/nav/bottom_nav_bar.dart';
-import 'package:gestionnairebloc/view/pwd_view.dart';
+import 'package:gestionnairebloc/view/update/update_view.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:gestionnairebloc/view/auth_view.dart';
-import 'package:gestionnairebloc/view/home_view.dart';
+import 'package:gestionnairebloc/view/auth/auth_view.dart';
+import 'package:gestionnairebloc/view/home/home_view.dart';
 
 final router = GoRouter(
   initialLocation: "/",
@@ -36,12 +35,12 @@ final router = GoRouter(
         GoRoute(
           path: Routes.add.path,
           name: Routes.add.name,
-          builder: (context, state) => const AddView()
+          builder: (context, state) => const UpdateView.add()
         ),
         GoRoute(
-          path: Routes.pwd.path,
-          name: Routes.pwd.name,
-          builder: (context, state) => PwdView(pwd: state.extra! as Password)
+          path: Routes.update.path,
+          name: Routes.update.name,
+          builder: (context, state) => UpdateView.modify(psswd: state.extra! as Password)
         ),
       ]
     )
