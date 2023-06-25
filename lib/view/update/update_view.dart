@@ -36,7 +36,6 @@ class _UpdateViewState extends State<UpdateView> {
   final TextEditingController controllerWs = TextEditingController();
   final TextEditingController controllerIde = TextEditingController();
   final TextEditingController controllerPwd = TextEditingController();
-  final EncryptData crypt = EncryptData();
 
   void update() {
     var ws = controllerWs.text;
@@ -46,10 +45,10 @@ class _UpdateViewState extends State<UpdateView> {
     if(ws.isNotEmpty && ide.isNotEmpty && pwdStr.length >= 12) {
       if(widget.type == UpdateType.modify) {
         widget.pwd!.website = ws;
-        widget.pwd!.identifier = crypt.encryptAES(ide);
-        widget.pwd!.pwd = crypt.encryptAES(pwdStr);
+        widget.pwd!.identifier = EncryptData.encryptAES(ide);
+        widget.pwd!.pwd = EncryptData.encryptAES(pwdStr);
       } else {
-        var pwd = Password(website: ws, identifier: crypt.encryptAES(ide), pwd: crypt.encryptAES(pwdStr));
+        var pwd = Password(website: ws, identifier: EncryptData.encryptAES(ide), pwd: EncryptData.encryptAES(pwdStr));
         BlocProvider.of<MainBloc>(context).add(Create(pwd: pwd));
         context.go(Routes.home.path);
       }

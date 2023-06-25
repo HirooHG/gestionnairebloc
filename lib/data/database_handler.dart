@@ -29,11 +29,11 @@ class DatabaseHandler {
   }
 
   Future<void> update(Password pwd) async {
-    var sql = "update pwd"
-              "set website = '${pwd.website}',"
-              "identifier = '${pwd.identifier}'"
-              "pwd = '${pwd.pwd}'"
-              "where id = ${pwd.id}';";
+    var sql = "update pwd "
+              "set website = '${pwd.website}', "
+              "identifier = '${pwd.identifier}', "
+              "pwd = '${pwd.pwd}' "
+              "where id = ${pwd.id};";
     await execQuery(sql);
   }
 

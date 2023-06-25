@@ -32,12 +32,12 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     var allPwds = [...pwds];
 
     if(event is Delete) {
-      handler.delete(event.pwd);
+      await handler.delete(event.pwd);
       pwds.remove(event.pwd);
     } else if(event is Update) {
-      handler.update(event.pwd);
+      await handler.update(event.pwd);
     } else if(event is Create) {
-      handler.create(event.pwd);
+      await handler.create(event.pwd);
       pwds.add(event.pwd);
       allPwds.add(event.pwd);
     }

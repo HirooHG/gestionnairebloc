@@ -1,27 +1,35 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
+import 'package:gestionnairebloc/storage/key_storage.dart';
 
 class EncryptData{
 
-  String? decrypted;
-  encrypt.Key? key;
-  encrypt.IV? iv;
-  encrypt.Encrypted? crypt;
-  encrypt.Encrypter? cryptable;
+  static final KeyStorage storage = KeyStorage();
 
-  EncryptData(){
-    key = encrypt.Key.fromUtf8('patou is god 4 life and eternity');
-    iv = encrypt.IV.fromBase64('8PzGKSMLuqSm0MVbviaWHA==');
-    cryptable = encrypt.Encrypter(encrypt.AES(key!));
+  static late final encrypt.Key key;
+  static late final encrypt.IV iv;
+  static late final encrypt.Encrypter encrypter;
+
+  static Future<void> init() async {
+    var keySqf = await storage.keySqf;
+    var ivSqf = await storage.ivSqf;
+
+    if(keySqf == null) {
+      await storage.initSqf();
+      
+      keySqf = await storage.keySqf;
+      ivSqf = await storage.ivSqf;
+    }
+
+    key = encrypt.Key.fromBase64(keySqf!);
+    iv = encrypt.IV.fromBase64(ivSqf!);
+    encrypter = encrypt.Encrypter(encrypt.AES(key));
   }
 
-  String encryptAES(String plainText) {
-    crypt = cryptable!.encrypt(plainText, iv: iv);
-    return crypt!.base64;
+  static String encryptAES(String plainText) {
+    return encrypter.encrypt(plainText, iv: iv).base64;
   }
 
-  String decryptAES(encrypt.Encrypted text) {
-    crypt = text;
-    decrypted = cryptable!.decrypt(crypt!, iv: iv);
-    return decrypted!;
+  static String decryptAES(encrypt.Encrypted text) {
+    return encrypter.decrypt(text, iv: iv);
   }
 }

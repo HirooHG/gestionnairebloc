@@ -31,13 +31,11 @@ class Password {
       pwd = map["pwd"].toString();
 
   String getPwdUncrypted() {
-    EncryptData crypt = EncryptData();
-    return pwd != null ? crypt.decryptAES(encrypt.Encrypted.fromBase64(pwd!)) : "";
+    return pwd != null ? EncryptData.decryptAES(encrypt.Encrypted.fromBase64(pwd!)) : "";
   }
 
   String getIdeUncrypted() {
-    EncryptData crypt = EncryptData();
-    return identifier != null ? crypt.decryptAES(encrypt.Encrypted.fromBase64(identifier!)) : "";
+    return identifier != null ? EncryptData.decryptAES(encrypt.Encrypted.fromBase64(identifier!)) : "";
   }
 
   @override

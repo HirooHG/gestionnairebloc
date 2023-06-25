@@ -15,7 +15,7 @@ class HiveHandler {
     final authKey = await storage.keyAuth;
 
     if(authKey == null) {
-      await storage.init();
+      await storage.initHive();
 
       authBox = await Hive.openBox<PasswordG>(
         "auth",
