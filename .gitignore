@@ -1,3 +1,7 @@
+# assets
+assets/manager.db
+assets/prev_crypt.md
+
 # Miscellaneous
 *.env
 *.class

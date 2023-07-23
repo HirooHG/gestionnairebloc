@@ -1,4 +1,4 @@
-package com.example.gestionnairebloc
+package fr.HirooHG.gestionnairePwd
 
 import io.flutter.embedding.android.FlutterActivity
 

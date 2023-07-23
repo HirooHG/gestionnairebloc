@@ -12,11 +12,12 @@ class RandomPwd extends Cubit<String> {
   String _randomPwd() {
     final tabs = [letters, signs, numbers ];
     String pwd = "";
+    const length = 15;
 
     do {
       pwd = "";
 
-      for(var i = 0; i < 10; i++) {
+      for(var i = 0; i < length; i++) {
         var tab = _randomThing(tabs);
         var letter = _randomThing(tab);
         pwd += letter;

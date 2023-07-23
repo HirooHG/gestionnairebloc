@@ -5,6 +5,17 @@ abstract class MainEvent {}
 abstract class Crud extends MainEvent {}
 
 class Init extends MainEvent {}
+class Error extends MainEvent {
+  final String msg;
+
+  Error({required this.msg});
+}
+class ModifyErrorEvent extends Error {
+  ModifyErrorEvent({required super.msg});
+}
+class AddErrorEvent extends Error {
+  AddErrorEvent({required super.msg});
+}
 
 // CRUD
 class Read extends Crud {}

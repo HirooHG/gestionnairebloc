@@ -1,12 +1,15 @@
 
 import 'dart:convert';
 
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive/hive.dart';
 
 class KeyStorage {
 
   final secureStorage = const FlutterSecureStorage();
+  final int ivLength = 16;
+  final int keyLength = 32;
 
   Future<void> initHive() async {
     await secureStorage.write(
@@ -17,12 +20,12 @@ class KeyStorage {
   Future<void> initSqf() async {
     await secureStorage.write(
       key: KeySecure.key.name,
-      value: 'patou is god 4 life and eternity'
+      value: encrypt.Key.fromSecureRandom(keyLength).base64
     );
 
     await secureStorage.write(
       key: KeySecure.iv.name,
-      value: '8PzGKSMLuqSm0MVbviaWHA=='
+      value: encrypt.IV.fromSecureRandom(ivLength).base64
     );
   }
 
@@ -40,9 +43,8 @@ class KeyStorage {
 }
 
 enum KeySecure {
-  iv(),
-  key(),
-  auth();
-
-  const KeySecure();
+  iv,
+  key,
+  auth
 }
+

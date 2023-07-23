@@ -17,3 +17,18 @@ class MainLoaded extends MainState {
 
   MainLoaded({required this.pwds, required this.allPwds});
 }
+
+class MainUpdateError extends MainLoaded {
+
+  final String msg;
+
+  MainUpdateError({required super.pwds, required super.allPwds, required this.msg});
+}
+
+class AddErrorState extends MainUpdateError {
+  AddErrorState({required super.pwds, required super.allPwds, required super.msg});
+}
+
+class ModifyErrorState extends MainUpdateError {
+  ModifyErrorState({required super.pwds, required super.allPwds, required super.msg});
+}

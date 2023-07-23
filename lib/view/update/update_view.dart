@@ -47,10 +47,22 @@ class _UpdateViewState extends State<UpdateView> {
         widget.pwd!.website = ws;
         widget.pwd!.identifier = EncryptData.encryptAES(ide);
         widget.pwd!.pwd = EncryptData.encryptAES(pwdStr);
+
+        BlocProvider.of<MainBloc>(context).add(Update(pwd: widget.pwd!));
+        context.go(Routes.home.path);
       } else {
         var pwd = Password(website: ws, identifier: EncryptData.encryptAES(ide), pwd: EncryptData.encryptAES(pwdStr));
+
         BlocProvider.of<MainBloc>(context).add(Create(pwd: pwd));
         context.go(Routes.home.path);
+      }
+    } else {
+      var msg = (pwdStr.length < 12) ? "password must be bigger than 12 !" : "Something is empty !";
+
+      if(widget.type == UpdateType.modify) {
+        BlocProvider.of<MainBloc>(context).add(ModifyErrorEvent(msg: msg));
+      } else {
+        BlocProvider.of<MainBloc>(context).add(AddErrorEvent(msg: msg));
       }
     }
   }
@@ -97,6 +109,27 @@ class _UpdateViewState extends State<UpdateView> {
               Field(controller: controllerWs, label: "website", type: widget.type),
               Field(controller: controllerIde, label: "identifier", type: widget.type),
               Field(controller: controllerPwd, label: "password", type: widget.type),
+              BlocBuilder<MainBloc, MainState>(
+                builder: (context, mainState) {
+                  if(widget.type == UpdateType.modify && mainState is ModifyErrorState) {
+                    return Text(
+                      mainState.msg,
+                      style: const TextStyle(
+                        color: Colors.red
+                      )
+                    );
+                  } else if (widget.type == UpdateType.add && mainState is AddErrorState) {
+                    return Text(
+                      mainState.msg,
+                      style: const TextStyle(
+                        color: Colors.red
+                      )
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: Row(

@@ -12,10 +12,12 @@ class HiveHandler {
 
   static Future<void> init() async {
     final storage = KeyStorage();
-    final authKey = await storage.keyAuth;
+    String? authKey = await storage.keyAuth;
 
     if(authKey == null) {
-      await storage.initHive();
+      storage.initHive();
+
+      authKey = await storage.keyAuth;
 
       authBox = await Hive.openBox<PasswordG>(
         "auth",
