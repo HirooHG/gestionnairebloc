@@ -20,40 +20,24 @@ class DatabaseHandler {
     );
   }
 
-  Future<void> delete(Password pwd) async {
-    var sql = "delete from pwd where id = ${pwd.id};";
-    await execQuery(sql);
+  Future<int> delete(Password pwd) async {
+    Database db = await initializeDB();
+    return await db.delete('pwd', where: 'id = ?', whereArgs: [pwd.id]);
   }
 
-  Future<void> update(Password pwd) async {
-    var sql = "update pwd "
-        "set website = '${pwd.website}', "
-        "identifier = '${pwd.identifier}', "
-        "pwd = '${pwd.pwd}' "
-        "where id = ${pwd.id};";
-    await execQuery(sql);
+  Future<int> update(Password pwd) async {
+    Database db = await initializeDB();
+    return await db
+        .update('pwd', pwd.toJson(), where: 'id = ?', whereArgs: [pwd.id]);
   }
 
-  Future<void> create(Password pwd) async {
-    var sql = "insert into pwd(website, identifier, pwd) "
-        "values ('${pwd.website}', '${pwd.identifier}', '${pwd.pwd}');";
-    await execQuery(sql);
+  Future<int> create(Password pwd) async {
+    Database db = await initializeDB();
+    return await db.insert('pwd', pwd.toJson());
   }
 
   Future<List<Password>> getPwds() async {
-    var sql = "select * from pwd;";
-    var pwdsRaw = await rawQuery(sql);
-    return pwdsRaw.map((e) => Password.fromJson(e)).toList();
-  }
-
-  // raw queries
-  Future<void> execQuery(String sql) async {
-    var db = await initializeDB();
-    db.execute(sql);
-  }
-
-  Future<List<Map<String, Object?>>> rawQuery(String sql) async {
-    var db = await initializeDB();
-    return db.rawQuery(sql);
+    Database db = await initializeDB();
+    return (await db.query('pwd')).map((e) => Password.fromJson(e)).toList();
   }
 }
