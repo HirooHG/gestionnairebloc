@@ -1,27 +1,30 @@
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'password_g.g.dart';
+
+@JsonSerializable()
 class PasswordG extends HiveObject {
-
   String pwd;
 
-  PasswordG({
-    required this.pwd
-  });
-  PasswordG.empty() :
-        pwd = "";
+  PasswordG({required this.pwd});
+  PasswordG.empty() : pwd = "";
 
-  Map<String, String> toMap() {
-    return {"pwd": pwd};
-  }
+  factory PasswordG.fromJson(Map<String, dynamic> json) =>
+      _$PasswordGFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PasswordGToJson(this);
 
   @override
   bool operator ==(Object other) {
-    return pwd == (other as PasswordG).pwd
-        && box == other.box;
+    return pwd == (other as PasswordG).pwd && box == other.box;
   }
+  
+  @override
+  int get hashCode => int.tryParse(key) ?? 0;
 }
-class PasswordGTypeAdapter extends TypeAdapter<PasswordG> {
 
+class PasswordGTypeAdapter extends TypeAdapter<PasswordG> {
   @override
   int get typeId => 1;
 
@@ -32,8 +35,6 @@ class PasswordGTypeAdapter extends TypeAdapter<PasswordG> {
 
   @override
   PasswordG read(BinaryReader reader) {
-    return PasswordG(
-      pwd: reader.read()
-    );
+    return PasswordG(pwd: reader.read());
   }
 }
