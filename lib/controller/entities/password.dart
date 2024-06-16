@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:gestionnairebloc/domain/crypt_data.dart';
+import 'package:gestionnairebloc/controller/crypt_data.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'password.g.dart';

@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:gestionnairebloc/router/routes.dart';
+import 'package:gestionnairebloc/utils/router/routes.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
@@ -13,7 +12,6 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-
   int index = 0;
 
   @override
@@ -21,7 +19,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
     return BottomNavigationBar(
       onTap: (value) {
         setState(() {
-          if(value == 0) {
+          if (value == 0) {
             context.go(Routes.home.path);
           } else {
             context.go(Routes.add.path);
@@ -33,14 +31,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       currentIndex: index,
       selectedItemColor: Colors.black,
       items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Home"
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.add),
-          label: "add"
-        )
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+        BottomNavigationBarItem(icon: Icon(Icons.add), label: "add")
       ],
     );
   }

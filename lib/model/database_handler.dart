@@ -1,4 +1,4 @@
-import 'package:gestionnairebloc/domain/entities/password.dart';
+import 'package:gestionnairebloc/controller/entities/password.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

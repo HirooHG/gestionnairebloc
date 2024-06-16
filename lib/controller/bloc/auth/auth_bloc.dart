@@ -1,14 +1,12 @@
-
 import 'package:bloc/bloc.dart';
 
-import 'package:gestionnairebloc/domain/entities/password_g.dart';
-import 'package:gestionnairebloc/data/hivehandler.dart';
+import 'package:gestionnairebloc/controller/entities/password_g.dart';
+import 'package:gestionnairebloc/model/hivehandler.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-
   HiveHandler handler = HiveHandler();
 
   AuthBloc() : super(NotConnected()) {
@@ -24,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     var pwdG = handler.getAuth();
 
-    if(pwdG == null) {
+    if (pwdG == null) {
       emit(FirstOpen());
     } else {
       emit(NotConnected());
@@ -34,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void createPwd(CreatePwd event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
 
-    if(verifPwd(event.passwd)) {
+    if (verifPwd(event.passwd)) {
       await handler.updateAuth(PasswordG(pwd: event.passwd));
       emit(Connected(passwordG: PasswordG(pwd: event.passwd)));
     } else {
@@ -48,10 +46,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void tryConnect(Connect event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    
+
     var pwdG = handler.getAuth();
 
-    if(event.passwd == pwdG!.pwd) {
+    if (event.passwd == pwdG!.pwd) {
       emit(Connected(passwordG: pwdG));
     } else {
       emit(FailedConnect(msg: "Not the good pwd"));

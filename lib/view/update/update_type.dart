@@ -1,8 +1,4 @@
-
 enum UpdateType {
-  add(),
-  modify();
-
-  const UpdateType();
+  add,
+  modify;
 }
-

@@ -1,13 +1,11 @@
-
 import 'package:bloc/bloc.dart';
-import 'package:gestionnairebloc/domain/entities/password.dart';
-import 'package:gestionnairebloc/data/database_handler.dart';
+import 'package:gestionnairebloc/controller/entities/password.dart';
+import 'package:gestionnairebloc/model/database_handler.dart';
 
 part 'main_state.dart';
 part 'main_event.dart';
 
 class MainBloc extends Bloc<MainEvent, MainState> {
-
   final DatabaseHandler handler = DatabaseHandler();
 
   MainBloc() : super(MainLoading()) {
@@ -21,7 +19,7 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     var allPwds = (state as MainLoaded).allPwds;
     var pwds = (state as MainLoaded).pwds;
 
-    if(event is AddErrorEvent) {
+    if (event is AddErrorEvent) {
       emit(AddErrorState(allPwds: allPwds, pwds: pwds, msg: event.msg));
     } else {
       emit(ModifyErrorState(allPwds: allPwds, pwds: pwds, msg: event.msg));
@@ -36,30 +34,29 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     emit(MainLoaded(pwds: pwds, allPwds: [...pwds]));
   }
 
-
   void crud(Crud event, Emitter<MainState> emit) async {
     emit(MainLoading());
 
-    var pwds = await handler.getPwds(); 
+    var pwds = await handler.getPwds();
     var allPwds = [...pwds];
 
-    if(event is Delete) {
+    if (event is Delete) {
       await handler.delete(event.pwd);
       pwds.removeWhere((e) => e.id == event.pwd.id);
       allPwds.removeWhere((e) => e.id == event.pwd.id);
-    } else if(event is Update) {
+    } else if (event is Update) {
       await handler.update(event.pwd);
       final pwd = pwds.singleWhere((element) => element.id == event.pwd.id);
 
       pwd.website = event.pwd.website;
       pwd.pwd = event.pwd.pwd;
       pwd.identifier = event.pwd.identifier;
-    } else if(event is Create) {
+    } else if (event is Create) {
       await handler.create(event.pwd);
       pwds.add(event.pwd);
       allPwds.add(event.pwd);
     }
-    
+
     emit(MainLoaded(pwds: pwds, allPwds: allPwds));
   }
 
@@ -68,7 +65,11 @@ class MainBloc extends Bloc<MainEvent, MainState> {
     emit(MainLoading());
     var rgx = RegExp("^(${event.value.toUpperCase()}).*\$");
 
-    var pwds = allPwds.where((element) => element.website != null && rgx.hasMatch(element.website!.toUpperCase())).toList();
+    var pwds = allPwds
+        .where((element) =>
+            element.website != null &&
+            rgx.hasMatch(element.website!.toUpperCase()))
+        .toList();
 
     emit(MainLoaded(pwds: pwds, allPwds: allPwds));
   }

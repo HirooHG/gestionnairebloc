@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestionnairebloc/domain/bloc/main/main_bloc.dart';
+import 'package:gestionnairebloc/controller/bloc/main/main_bloc.dart';
 
 class SearchBar extends StatelessWidget {
   SearchBar({super.key});
@@ -11,16 +9,13 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final double width = MediaQuery.of(context).size.width;
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 25),
       width: width * .8,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(8)),
       child: TextField(
         controller: searchController,
         style: const TextStyle(
@@ -30,19 +25,18 @@ class SearchBar extends StatelessWidget {
         ),
         cursorColor: Colors.black,
         decoration: const InputDecoration(
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
-          enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-          label: Text(
-            "Search",
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Ubuntu",
-            ),
-          )
-        ),
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
+            label: Text(
+              "Search",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Ubuntu",
+              ),
+            )),
         onChanged: (value) {
-          if(value.isEmpty) {
+          if (value.isEmpty) {
             BlocProvider.of<MainBloc>(context).add(Search(value: value));
           }
         },

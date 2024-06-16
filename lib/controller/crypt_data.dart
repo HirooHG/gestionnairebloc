@@ -1,8 +1,7 @@
 import 'package:encrypt/encrypt.dart' as encrypt;
-import 'package:gestionnairebloc/storage/key_storage.dart';
+import 'package:gestionnairebloc/utils/storage/key_storage.dart';
 
-class EncryptData{
-
+class EncryptData {
   static final KeyStorage storage = KeyStorage();
 
   static late final encrypt.Key key;
@@ -13,9 +12,9 @@ class EncryptData{
     var keySqf = await storage.keySqf;
     var ivSqf = await storage.ivSqf;
 
-    if(keySqf == null) {
+    if (keySqf == null) {
       await storage.initSqf();
-      
+
       keySqf = await storage.keySqf;
       ivSqf = await storage.ivSqf;
     }
